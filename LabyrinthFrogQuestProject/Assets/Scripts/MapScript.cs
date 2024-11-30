@@ -176,9 +176,8 @@ public class MapScript : MonoBehaviour
                 }
                 tilesToMove.Reverse();
 
-                for (int i = maxSizeDepth; i > 0; i--)
+                for (int i = maxSizeDepth - 1; i > 0; i--)
                 {
-
                     Vector3 tilePos = tilesToMove[i].GetComponent<Transform>().position;
                     tilePos.y += 1;
                     tilesToMove[i].GetComponent<Transform>().position = tilePos;
@@ -223,9 +222,20 @@ public class MapScript : MonoBehaviour
 
         }
 
+        RedrawMap();
+        
 
-
-
+    }
+    public void RedrawMap()
+    {
+        Debug.Log("RedrawMap");
+        for (int i = 0; i <= mapWidth - 1; i++)
+        {
+            for (int j = 0; j <= mapDepth - 1; j++)
+            {
+                mapTiles[i,j].transform.position = new Vector3(i, j, 0);
+            }
+        }
     }
 
 

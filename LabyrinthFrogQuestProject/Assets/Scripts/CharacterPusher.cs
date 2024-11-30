@@ -111,7 +111,10 @@ public class CharacterPusher : MonoBehaviour
         if (transform.position.x > -1 || transform.position.x < mapScript.MapWidth + 1)
         {
             if (transform.position.y == -1)
+            {
                 Debug.Log("Pusher Push Up");
+                mapScript.PushTiles(PushDirection.Up, (int)transform.position.x, (int)transform.position.y);
+            }
 
             else if(transform.position.y == mapDepth)
                 Debug.Log("Pusher Push Down");

@@ -450,6 +450,7 @@ MonoBehaviour:
   - {fileID: 6285314206767769754, guid: f558fd0c6b5b1a3479dca9069a49bbff, type: 3}
   mapDepth: 2
   mapWidth: 2
+  handTile: {fileID: 6285314206767769754, guid: f558fd0c6b5b1a3479dca9069a49bbff, type: 3}
 --- !u!114 &1268727469
 MonoBehaviour:
   m_ObjectHideFlags: 0
