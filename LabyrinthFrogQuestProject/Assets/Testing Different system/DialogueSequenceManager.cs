@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.IO;
-using System.Collections;
 
 public class DialogueSequenceManager : MonoBehaviour
 {
@@ -68,7 +67,33 @@ public class DialogueSequenceManager : MonoBehaviour
         else
         {
             Debug.Log("End of dialogue sequence.");
-            // Optionally, trigger some game progression, like enabling player movement
+            // Optionally, trigger some game progression, like enabling player movement or starting new events
         }
+    }
+    private void Update()
+    {
+        WaitForInput();
+    }
+
+    // New method to handle Tab key progression
+    public void WaitForInput()
+    {
+        // Wait for Tab key to switch to the next dialogue file
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            // Check if there's another dialogue file to load
+            if (currentDialogueIndex + 1 < dialogueFiles.Length)
+            {
+                currentDialogueIndex++;
+                LoadSingleDialogue(dialogueFiles[currentDialogueIndex]);
+            }
+            else
+            {
+                Debug.Log("End of dialogue files.");
+            }
+        }
+
+        // Check for 'Q' to progress to the next game event or dialogue sequence
+        
     }
 }

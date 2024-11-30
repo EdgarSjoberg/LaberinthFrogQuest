@@ -1,12 +1,17 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro; // Import the TextMeshPro namespace
 using System.Collections;
-using TMPro;
 
 public class DialogueHandler : MonoBehaviour
 {
-    public TextMeshProUGUI dialogueText;  // UI Text component where dialogue is displayed
+    public TextMeshProUGUI dialogueText;  // UI TextMeshPro component where dialogue is displayed
+
     private bool isTyping = false;
+
+    void Start()
+    {
+        // Nothing special for this part yet, just use the assigned TextMeshProUGUI component.
+    }
 
     // Start displaying a new dialogue
     public void StartDialogue(string[] lines, float textSpeed)
@@ -20,16 +25,10 @@ public class DialogueHandler : MonoBehaviour
         foreach (string line in lines)
         {
             yield return StartCoroutine(TypeText(line, textSpeed));
-            
-            // Wait for player input to proceed to the next line
-            while (!Input.GetKeyDown(KeyCode.Space)) // Or you could use any other input
-            {
-                yield return null;
-            }           
         }
 
-        // Once all lines are done, you can trigger the next dialogue sequence
-        FindObjectOfType<DialogueSequenceManager>().NextDialogue();
+        // Once all lines are done, wait for the Tab key input to move to the next dialogue file or the next part of the game
+        FindObjectOfType<DialogueSequenceManager>().WaitForInput();  // Trigger input handling
     }
 
     // Coroutine that types the text one letter at a time
@@ -45,5 +44,8 @@ public class DialogueHandler : MonoBehaviour
         }
 
         isTyping = false;
+
+        // Wait for player input to move to the next line
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space)); // Wait for Space key input
     }
 }
