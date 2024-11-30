@@ -9,10 +9,13 @@ public class CharacterScript : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] MapScript mapScript;
 
+    bool playerTurn;
+
 
     void Start()
     {
         transform.position = Vector3.zero;
+        playerTurn = false;
     }
 
     enum MoveDirection
@@ -24,27 +27,33 @@ public class CharacterScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        while(playerTurn)
         {
-            if (!moveTurn)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                placeTileTurn = false;
-                moveTurn = true;
-                Debug.Log("move turn");
+                if (!moveTurn)
+                {
+                    placeTileTurn = false;
+                    moveTurn = true;
+                    Debug.Log("move turn");
+                }
+                else
+                {
+                    moveTurn = false;
+                    placeTileTurn = true;
+                    Debug.Log("Place turn");
+                }
             }
-            else
-            {
-                moveTurn = false;
-                placeTileTurn = true;
-                Debug.Log("Place turn");
-            }
+            CheckMoveInput();
         }
-      CheckMoveInput();
+
+
+        
     }
 
-    void CheckMoveInput()
+    public void CheckMoveInput()
     {
         if (moveTurn)
         {
@@ -84,6 +93,7 @@ public class CharacterScript : MonoBehaviour
 
         }
     }
+
 
     bool CanMove(MoveDirection moveDirection)
     {
@@ -149,4 +159,13 @@ public class CharacterScript : MonoBehaviour
 
         return false;
     }
+
+
+
+    public bool PlayerTurn
+    {
+        get { return playerTurn; }
+        set { playerTurn = value;  }
+    }
+
 }
