@@ -308,9 +308,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileList:
   - {fileID: 6285314206767769754, guid: 655f51a7cb49b984d8cc10d792b9f89d, type: 3}
+  - {fileID: 6285314206767769754, guid: 3e5db7efa5978644fb28894192988265, type: 3}
+  - {fileID: 6285314206767769754, guid: eecbfe54714875240b45a28b6850660c, type: 3}
+  - {fileID: 6285314206767769754, guid: 30ab5a2ce7d664c4181fc8c7f04a0832, type: 3}
   - {fileID: 6285314206767769754, guid: b096b4cec3341c0438222f4d2eb45d44, type: 3}
   - {fileID: 6285314206767769754, guid: d01b3e1f36e5c4548b717597d850de83, type: 3}
+  - {fileID: 6285314206767769754, guid: 29527e19ef3e3c4439391fecfd7dfbbf, type: 3}
   - {fileID: 6285314206767769754, guid: 9449c0b29b04a5b449a9c14a9a93589f, type: 3}
+  - {fileID: 6285314206767769754, guid: aa0c8ffb037540d4ea10c88caa9c5ef8, type: 3}
+  - {fileID: 6285314206767769754, guid: 350c748bb185ab14b9236aa4f7578ad5, type: 3}
   - {fileID: 6285314206767769754, guid: f558fd0c6b5b1a3479dca9069a49bbff, type: 3}
   mapDepth: 2
   mapWidth: 2
@@ -333,6 +339,7 @@ MonoBehaviour:
   won: 0
   mapScript: {fileID: 1268727468}
   maincamera: {fileID: 1191938533}
+  player: {fileID: 0}
   mapSize: {x: 10, y: 10}
 --- !u!1 &1751188023
 GameObject:
