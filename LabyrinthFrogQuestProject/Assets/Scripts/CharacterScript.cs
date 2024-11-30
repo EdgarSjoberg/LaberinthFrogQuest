@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterScript : MonoBehaviour
@@ -8,6 +7,9 @@ public class CharacterScript : MonoBehaviour
     bool moveTurn = true;
     bool placeTileTurn;
     [SerializeField] float moveSpeed;
+    [SerializeField] MapScript mapScript;
+
+
     void Start()
     {
         transform.position = Vector3.zero;
@@ -39,32 +41,112 @@ public class CharacterScript : MonoBehaviour
                 Debug.Log("Place turn");
             }
         }
+      CheckMoveInput();
+    }
+
+    void CheckMoveInput()
+    {
         if (moveTurn)
         {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                transform.position += new Vector3(0, 1, 0);
+                if (CanMove(MoveDirection.Up))
+                {
+                    moveTurn = false;
+                    transform.position += new Vector3(0, 1, 0);
+                }
 
+            }
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (CanMove(MoveDirection.Down))
+                {
+                    moveTurn = false;
+                    transform.position += new Vector3(0, -1, 0);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (CanMove(MoveDirection.Right))
+                {
+                    moveTurn = false;
+                    transform.position += new Vector3(1, 0, 0);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (CanMove(MoveDirection.Left))
+                {
+                    moveTurn = false;
+                    transform.position += new Vector3(-1, 0, 0);
+                }
+            }
 
-            } 
-            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                transform.position += new Vector3(0, -1, 0);
-            } 
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                transform.position += new Vector3(1, 0, 0);
-            }
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                transform.position += new Vector3(-1, 0, 0);
-            }
         }
     }
 
     bool CanMove(MoveDirection moveDirection)
     {
-        
-        return true;
+        Tile[,] mapTiles = mapScript.GetMap();
+
+        switch (moveDirection)
+        {
+            case MoveDirection.Up:
+                if (mapTiles[(int)transform.position.x, (int)transform.position.y].CheckPaths(0))
+                {
+                    Debug.Log("Passed if it can leave up");
+                    if (transform.position.y + 1 <= mapScript.MapDepth)
+                        if (mapTiles[(int)transform.position.x, (int)transform.position.y + 1].CheckPaths(2))
+                        {
+
+                            Debug.Log("Passed if it can enter from below");
+                            return true;
+                        }
+                    Debug.Log("Failed can enter from below");
+                }
+                break;
+            case MoveDirection.Down:
+                if (mapTiles[(int)transform.position.x, (int)transform.position.y].CheckPaths(2))
+                {
+                    Debug.Log("Passed if it can leave Down");
+                    if (transform.position.y - 1 >= 0)
+                        if (mapTiles[(int)transform.position.x, (int)transform.position.y - 1].CheckPaths(0))
+                        {
+
+                            Debug.Log("Passed if it can enter from above");
+                            return true;
+                        }
+                    Debug.Log("Failed can enter from above");
+                }
+                break;
+            case MoveDirection.Right:
+                if (mapTiles[(int)transform.position.x, (int)transform.position.y].CheckPaths(1))
+                {
+                    Debug.Log("Passed if it can leave right");
+                    if (transform.position.x + 1 <= mapScript.MapWidth)
+                        if (mapTiles[(int)transform.position.x + 1, (int)transform.position.y].CheckPaths(3))
+                        {
+
+                            Debug.Log("Passed if it can enter from left");
+                            return true;
+                        }
+                    Debug.Log("Failed can enter from left");
+                }
+                break;
+            case MoveDirection.Left:
+                if (mapTiles[(int)transform.position.x, (int)transform.position.y].CheckPaths(3))
+                {
+                    Debug.Log("Checked if it can leave left");
+                    if (transform.position.x - 1 >= 0)
+                        if (mapTiles[(int)transform.position.x - 1, (int)transform.position.y].CheckPaths(1))
+                        {
+                            Debug.Log("Checked if it can enter from right");
+                            return true;
+                        }
+                }
+                break;
+        }
+
+        return false;
     }
 }
