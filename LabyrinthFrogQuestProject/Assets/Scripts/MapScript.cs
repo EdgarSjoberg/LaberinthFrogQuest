@@ -17,8 +17,8 @@ public class MapScript : MonoBehaviour
     {
         mapTiles = new Tile[mapWidth, mapDepth];
 
-        CreateMap();
-        DrawMap();
+        //CreateMap();
+        //DrawMap();
     }
 
 
@@ -45,6 +45,14 @@ public class MapScript : MonoBehaviour
                 mapTiles[i, j] = tileList[Random.Range(0, tileList.Count - 1)];
             }
         }
+    }
+
+    public void ChangeDimensions(int width, int depth)
+    {
+        MapWidth = width;
+        MapDepth = depth;
+
+        mapTiles = new Tile[width, depth];
     }
 
     public int MapDepth

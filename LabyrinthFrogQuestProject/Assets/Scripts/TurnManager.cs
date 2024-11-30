@@ -39,7 +39,12 @@ public class TurnManager : MonoBehaviour
     {
         //  Set up visuals and tile information
         //  
+        mapScript.ChangeDimensions(3, 3);
 
+
+
+        mapScript.CreateMap();
+        mapScript.DrawMap();
         
 
         yield return new WaitForSeconds(1f);
