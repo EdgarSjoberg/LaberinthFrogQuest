@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  mapScript: {fileID: 1268727468}
 --- !u!4 &256333427
 Transform:
   m_ObjectHideFlags: 0
