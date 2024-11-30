@@ -28,16 +28,53 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     Camera maincamera;
 
+    [SerializeField]
+    CharacterScript player;
+
+
     //[SerializeField] List<Tile> tileList = new List<Tile>();
     [SerializeField] Vector2 mapSize = new Vector2(2,2);
 
     void Start()
     {
         numTurns = 0;
+        
         state = TurnState.START;
         StartCoroutine(SetupGame());
         //  Initialising the game information
 
+    }
+
+    void Update()
+    {
+
+        switch(state)
+        {
+            case TurnState.START:
+
+                
+                break;
+
+            case TurnState.PLAYERTURN_LABYRINTH:
+
+                break;
+
+            case TurnState.PLAYERTURN_MOVE:
+
+                player.CheckMoveInput();
+
+                break;
+
+            case TurnState.END:
+
+                break;
+
+        }
+            
+
+
+
+        
     }
 
     IEnumerator SetupGame()
@@ -53,7 +90,8 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        state = TurnState.PLAYERTURN_LABYRINTH;
+        //state = TurnState.PLAYERTURN_LABYRINTH;
+        state = TurnState.PLAYERTURN_MOVE;
         PlayerTurn();
 
     }
@@ -63,6 +101,8 @@ public class TurnManager : MonoBehaviour
         numTurns++;
         playerActed = false;
         playerMoved = false;
+
+        player.PlayerTurn = true;
 
         //  await input to begin PlayerLabyrinthAction, moving a row/column of the labyrinth
         //  before being able to move the character.
@@ -128,7 +168,7 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        state = TurnState.PLAYERTURN_LABYRINTH;
+        state = TurnState.PLAYERTURN_MOVE;
         PlayerTurn();
 
     }
