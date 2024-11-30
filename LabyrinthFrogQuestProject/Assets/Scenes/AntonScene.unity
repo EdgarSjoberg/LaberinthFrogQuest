@@ -224,6 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1268727467}
   - component: {fileID: 1268727468}
+  - component: {fileID: 1268727469}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -240,7 +241,7 @@ Transform:
   m_GameObject: {fileID: 1268727465}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7024313, y: -0.72324705, z: 0.00040457863}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -265,6 +266,26 @@ MonoBehaviour:
   - {fileID: 6285314206767769754, guid: 9449c0b29b04a5b449a9c14a9a93589f, type: 3}
   mapDepth: 2
   mapWidth: 2
+--- !u!114 &1268727469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268727465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4850c78941f6a9e43bcf122450956b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  numTurns: 0
+  playerActed: 0
+  playerMoved: 0
+  won: 0
+  mapScript: {fileID: 1268727468}
+  maincamera: {fileID: 1191938533}
+  mapSize: {x: 6, y: 6}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
