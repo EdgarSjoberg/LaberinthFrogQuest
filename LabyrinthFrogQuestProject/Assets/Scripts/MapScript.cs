@@ -7,20 +7,16 @@ public class MapScript : MonoBehaviour
     [SerializeField] List<Tile> tileList = new List<Tile>();
     [SerializeField] Tile[,] mapTiles;
 
-     int mapDepth;
-     int mapWidth;
+     [SerializeField] int mapDepth = 2;
+     [SerializeField] int mapWidth = 2;
     // Start is called before the first frame update
 
-    public MapScript(List<Tile> tileList, Vector2 mapSize)
-    {
-        this.tileList = tileList;
-        mapTiles = new Tile[(int)mapSize.y, (int)mapSize.x];
-        CreateMap();
-    }
+
 
     void Start()
     {
-        
+        mapTiles = new Tile[mapWidth, mapDepth];
+        CreateMap();
         DrawMap();
     }
 

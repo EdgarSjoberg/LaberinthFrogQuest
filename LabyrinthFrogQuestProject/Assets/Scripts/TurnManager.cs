@@ -21,6 +21,9 @@ public class TurnManager : MonoBehaviour
     public bool playerActed = false;
     public bool won = false;
 
+    MapScript mapScript;
+    [SerializeField] List<Tile> tileList = new List<Tile>();
+    [SerializeField] Vector2 mapSize = new Vector2(2,2);
     void Start()
     {
         numTurns = 0;
@@ -34,12 +37,10 @@ public class TurnManager : MonoBehaviour
     {
         //  Set up visuals and tile information
         //  
-
         yield return new WaitForSeconds(1f);
 
         state = TurnState.PLAYERTURN;
         //PlayerTurn();
-
 
     }
 
