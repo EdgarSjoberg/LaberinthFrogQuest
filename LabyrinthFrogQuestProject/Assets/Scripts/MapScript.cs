@@ -7,8 +7,8 @@ public class MapScript : MonoBehaviour
     [SerializeField] List<Tile> tileList = new List<Tile>();
     [SerializeField] Tile[,] mapTiles;
 
-     [SerializeField] int mapDepth = 2;
-     [SerializeField] int mapWidth = 2;
+    [SerializeField] int mapDepth = 2;
+    [SerializeField] int mapWidth = 2;
     // Start is called before the first frame update
 
 
@@ -27,7 +27,7 @@ public class MapScript : MonoBehaviour
     {
         for (int i = 0; i <= mapWidth - 1; i++)
         {
-            for (int j = 0; j <= mapDepth - 1; j++) 
+            for (int j = 0; j <= mapDepth - 1; j++)
             {
                 Tile tileClone = mapTiles[i, j];
                 Tile createdTile = Instantiate(tileClone, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
@@ -64,6 +64,11 @@ public class MapScript : MonoBehaviour
     {
         get { return mapWidth; }
         set { mapWidth = value; }
+    }
+
+    public Tile[,] GetMap()
+    {
+        return mapTiles;
     }
 
 
