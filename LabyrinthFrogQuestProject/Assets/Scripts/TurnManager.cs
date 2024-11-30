@@ -19,16 +19,19 @@ public class TurnManager : MonoBehaviour
     public int numTurns;
 
     public bool playerActed = false;
+    public bool playerMoved = false;
     public bool won = false;
 
+    [SerializeField]
     MapScript mapScript;
+
     [SerializeField] List<Tile> tileList = new List<Tile>();
     [SerializeField] Vector2 mapSize = new Vector2(2,2);
     void Start()
     {
         numTurns = 0;
         state = TurnState.START;
-        //  StartCoRoutine(SetupGame());
+        StartCoroutine(SetupGame());
         //  Initialising the game information
 
     }
@@ -37,10 +40,18 @@ public class TurnManager : MonoBehaviour
     {
         //  Set up visuals and tile information
         //  
+        mapScript.ChangeDimensions(3, 3);
+
+
+
+        mapScript.CreateMap();
+        mapScript.DrawMap();
+        
+
         yield return new WaitForSeconds(1f);
 
         state = TurnState.PLAYERTURN;
-        //PlayerTurn();
+        PlayerTurn();
 
     }
 
@@ -48,6 +59,7 @@ public class TurnManager : MonoBehaviour
     {
         numTurns++;
         playerActed = false;
+        playerMoved = false;
 
         //  Eventual dialog here?
         //  Some sort of check perhaps to ensure the player cant act more than once?
@@ -55,7 +67,7 @@ public class TurnManager : MonoBehaviour
 
     }
 
-    IEnumerator PlayerClick()
+    IEnumerator PlayerLabyrinthAction()
     {
 
         //  If the tile clicked on is within movement range, check if its a valid move
@@ -70,7 +82,23 @@ public class TurnManager : MonoBehaviour
         //  ONLY ONCE A VALID MOVE IS MADE SHOULD THE 'playerActed' BOOL BE MADE TRUE!
         playerActed = true;
 
-        if(won)
+        StartCoroutine (PlayerMove());
+
+    }
+
+    IEnumerator PlayerMove()
+    {
+        //  Check if move is valid. If player already moved, don't execute another move (see playerMoved bool)
+        //  If yes: execute the move
+        //  if no: dont do anything and wait for valid input
+
+        yield return new WaitForSeconds(1f);
+
+        playerMoved = true;
+
+        //  
+
+        if (won)
         {
             state = TurnState.END;
             EndGame();
@@ -81,8 +109,9 @@ public class TurnManager : MonoBehaviour
             state = TurnState.LABYRINTHTURN;
             StartCoroutine(LabyrinthTurn());
         }
-
     }
+
+
 
     IEnumerator LabyrinthTurn()
     {
