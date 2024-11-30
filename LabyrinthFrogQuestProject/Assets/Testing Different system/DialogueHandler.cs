@@ -6,13 +6,7 @@ using TMPro;
 public class DialogueHandler : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;  // UI Text component where dialogue is displayed
-
     private bool isTyping = false;
-
-    void Start()
-    {
-        
-    }
 
     // Start displaying a new dialogue
     public void StartDialogue(string[] lines, float textSpeed)
@@ -26,15 +20,12 @@ public class DialogueHandler : MonoBehaviour
         foreach (string line in lines)
         {
             yield return StartCoroutine(TypeText(line, textSpeed));
-           
-
+            
             // Wait for player input to proceed to the next line
             while (!Input.GetKeyDown(KeyCode.Space)) // Or you could use any other input
             {
                 yield return null;
-            }
-
-            
+            }           
         }
 
         // Once all lines are done, you can trigger the next dialogue sequence

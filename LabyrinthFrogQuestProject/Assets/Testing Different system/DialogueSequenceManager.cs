@@ -6,6 +6,7 @@ public class DialogueSequenceManager : MonoBehaviour
 {
     public string dialogueFolderPath = "Assets/Dialogue"; // Folder path where the text files are stored
     public float textSpeed = 0.05f; // Speed of text appearing letter by letter
+    public bool isSingleFileDialogue = false; // Toggle between single file or multiple files
 
     private string[] dialogueFiles;
     private int currentDialogueIndex = 0;
@@ -20,12 +21,27 @@ public class DialogueSequenceManager : MonoBehaviour
         if (dialogueFiles.Length > 0)
         {
             dialogueHandler = FindObjectOfType<DialogueHandler>(); // Get the DialogueHandler instance in the scene
-            LoadDialogue(dialogueFiles[currentDialogueIndex]);
+
+            if (isSingleFileDialogue)
+            {
+                LoadSingleDialogue(dialogueFiles[0]); // Load the first file if it's a single file dialogue
+            }
+            else
+            {
+                LoadDialogue(dialogueFiles[currentDialogueIndex]); // Load the first file in multiple file scenario
+            }
         }
         else
         {
             Debug.LogError("No dialogue files found in folder.");
         }
+    }
+
+    // Loads all the lines from a single text file
+    void LoadSingleDialogue(string filePath)
+    {
+        string[] lines = File.ReadAllLines(filePath);
+        dialogueHandler.StartDialogue(lines, textSpeed);
     }
 
     // Loads a dialogue text file and sends it to the DialogueHandler
@@ -35,9 +51,15 @@ public class DialogueSequenceManager : MonoBehaviour
         dialogueHandler.StartDialogue(lines, textSpeed);
     }
 
-    // Call this method to progress to the next dialogue file
+    // Call this method to progress to the next dialogue file (if multiple file dialogue is enabled)
     public void NextDialogue()
     {
+        if (isSingleFileDialogue)
+        {
+            Debug.Log("Single-file dialogue, no further files.");
+            return; // No progression for single file dialogue
+        }
+
         currentDialogueIndex++;
         if (currentDialogueIndex < dialogueFiles.Length)
         {

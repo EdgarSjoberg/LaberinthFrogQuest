@@ -227,6 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueFolderPath: Assets/Resources/Sentences
   textSpeed: 0.05
+  isSingleFileDialogue: 0
 --- !u!1 &356044274
 GameObject:
   m_ObjectHideFlags: 0
