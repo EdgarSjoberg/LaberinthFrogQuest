@@ -7,8 +7,8 @@ public abstract class Tile : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] bool[] paths = null;
-    [SerializeField] bool hasCollectable;
+    [SerializeField] protected bool[] paths = null;
+    [SerializeField] protected bool hasCollectable;
 
     void Start()
     {
@@ -21,5 +21,5 @@ public abstract class Tile : MonoBehaviour
         
     }
 
-    public abstract bool CheckPaths();
+    public abstract bool CheckPaths(int direction);
 }
