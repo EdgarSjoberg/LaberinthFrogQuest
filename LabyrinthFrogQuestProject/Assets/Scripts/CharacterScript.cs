@@ -4,7 +4,7 @@ public class CharacterScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    bool moveTurn = true;
+    //bool moveTurn = true;
     bool placeTileTurn;
     [SerializeField] float moveSpeed;
     [SerializeField] MapScript mapScript;
@@ -29,25 +29,25 @@ public class CharacterScript : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        while(playerTurn)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (!moveTurn)
-                {
-                    placeTileTurn = false;
-                    moveTurn = true;
-                    Debug.Log("move turn");
-                }
-                else
-                {
-                    moveTurn = false;
-                    placeTileTurn = true;
-                    Debug.Log("Place turn");
-                }
-            }
-            CheckMoveInput();
-        }
+        //while(playerTurn)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Space))
+        //    {
+        //        if (!moveTurn)
+        //        {
+        //            placeTileTurn = false;
+        //            moveTurn = true;
+        //            Debug.Log("move turn");
+        //        }
+        //        else
+        //        {
+        //            moveTurn = false;
+        //            placeTileTurn = true;
+        //            Debug.Log("Place turn");
+        //        }
+        //    }
+        //    CheckMoveInput();
+        //}
 
 
         
@@ -55,42 +55,38 @@ public class CharacterScript : MonoBehaviour
 
     public void CheckMoveInput()
     {
-        if (moveTurn)
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            if (CanMove(MoveDirection.Up))
             {
-                if (CanMove(MoveDirection.Up))
-                {
-                    moveTurn = false;
-                    transform.position += new Vector3(0, 1, 0);
-                }
-
-            }
-            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                if (CanMove(MoveDirection.Down))
-                {
-                    moveTurn = false;
-                    transform.position += new Vector3(0, -1, 0);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                if (CanMove(MoveDirection.Right))
-                {
-                    moveTurn = false;
-                    transform.position += new Vector3(1, 0, 0);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                if (CanMove(MoveDirection.Left))
-                {
-                    moveTurn = false;
-                    transform.position += new Vector3(-1, 0, 0);
-                }
+                //moveTurn = false;
+                transform.position += new Vector3(0, 1, 0);
             }
 
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (CanMove(MoveDirection.Down))
+            {
+                //moveTurn = false;
+                transform.position += new Vector3(0, -1, 0);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (CanMove(MoveDirection.Right))
+            {
+                //moveTurn = false;
+                transform.position += new Vector3(1, 0, 0);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (CanMove(MoveDirection.Left))
+            {
+                //moveTurn = false;
+                transform.position += new Vector3(-1, 0, 0);
+            }
         }
     }
 

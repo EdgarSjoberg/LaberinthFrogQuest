@@ -45,6 +45,38 @@ public class TurnManager : MonoBehaviour
 
     }
 
+    void Update()
+    {
+
+        switch(state)
+        {
+            case TurnState.START:
+
+                
+                break;
+
+            case TurnState.PLAYERTURN_LABYRINTH:
+
+                break;
+
+            case TurnState.PLAYERTURN_MOVE:
+
+                player.CheckMoveInput();
+
+                break;
+
+            case TurnState.END:
+
+                break;
+
+        }
+            
+
+
+
+        
+    }
+
     IEnumerator SetupGame()
     {
         //  Set up visuals and tile information
@@ -58,7 +90,8 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        state = TurnState.PLAYERTURN_LABYRINTH;
+        //state = TurnState.PLAYERTURN_LABYRINTH;
+        state = TurnState.PLAYERTURN_MOVE;
         PlayerTurn();
 
     }
@@ -135,7 +168,7 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        state = TurnState.PLAYERTURN_LABYRINTH;
+        state = TurnState.PLAYERTURN_MOVE;
         PlayerTurn();
 
     }
