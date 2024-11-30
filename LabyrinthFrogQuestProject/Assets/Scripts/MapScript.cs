@@ -47,7 +47,10 @@ public class MapScript : MonoBehaviour
         }
     }
 
+    public void PushTile()
+    {
 
+    }
 
     public void ChangeDimensions(int width, int depth)
     {
@@ -71,11 +74,6 @@ public class MapScript : MonoBehaviour
     public Tile[,] GetMap()
     {
         return mapTiles;
-    }
-
-    public Vector3 Center()
-    {
-        return new Vector3(((float)MapWidth/2), ((float)MapDepth/2)-0.5f);
     }
 
 

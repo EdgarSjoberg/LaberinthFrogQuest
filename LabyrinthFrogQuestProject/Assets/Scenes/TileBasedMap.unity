@@ -332,8 +332,8 @@ MonoBehaviour:
   playerMoved: 0
   won: 0
   mapScript: {fileID: 1268727468}
-  tileList: []
-  mapSize: {x: 2, y: 2}
+  maincamera: {fileID: 1191938533}
+  mapSize: {x: 10, y: 10}
 --- !u!1 &1751188023
 GameObject:
   m_ObjectHideFlags: 0
