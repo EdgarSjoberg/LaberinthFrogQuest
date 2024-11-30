@@ -25,6 +25,9 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     MapScript mapScript;
 
+    [SerializeField]
+    Camera maincamera;
+
     //[SerializeField] List<Tile> tileList = new List<Tile>();
     [SerializeField] Vector2 mapSize = new Vector2(2,2);
 
@@ -43,11 +46,10 @@ public class TurnManager : MonoBehaviour
         //  
         mapScript.ChangeDimensions((int)mapSize.x, (int)mapSize.y);
 
-
-
         mapScript.CreateMap();
         mapScript.DrawMap();
         
+        CenterCamera();
 
         yield return new WaitForSeconds(1f);
 
@@ -139,6 +141,16 @@ public class TurnManager : MonoBehaviour
         //  Funny visuals and dialog from our little frog lad?
 
         //  Potential to start a new game, if we have the time
+    }
+
+    public void CenterCamera()
+    {
+        Vector3 newVector = mapScript.Center();
+        newVector.z = -10;
+
+        maincamera.GetComponent<Transform>().position = newVector;
+
+
     }
 
 
