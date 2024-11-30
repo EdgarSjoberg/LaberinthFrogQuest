@@ -16,15 +16,12 @@ public class MapScript : MonoBehaviour
     void Start()
     {
         mapTiles = new Tile[mapWidth, mapDepth];
+
         CreateMap();
         DrawMap();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 
     public void DrawMap()
     {
@@ -49,4 +46,17 @@ public class MapScript : MonoBehaviour
             }
         }
     }
+
+    public int MapDepth
+    {
+        get { return mapDepth; }
+        set { mapDepth = value; }
+    }
+    public int MapWidth
+    {
+        get { return mapWidth; }
+        set { mapWidth = value; }
+    }
+
+
 }
