@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum TurnState { START, PLAYERTURN, LABYRINTHTURN, END}
+public enum TurnState { START, PLAYERTURN_LABYRINTH, PLAYERTURN_MOVE, LABYRINTHTURN, END}
 
 public class TurnManager : MonoBehaviour
 {
@@ -25,8 +25,9 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     MapScript mapScript;
 
-    [SerializeField] List<Tile> tileList = new List<Tile>();
+    //[SerializeField] List<Tile> tileList = new List<Tile>();
     [SerializeField] Vector2 mapSize = new Vector2(2,2);
+
     void Start()
     {
         numTurns = 0;
@@ -40,7 +41,7 @@ public class TurnManager : MonoBehaviour
     {
         //  Set up visuals and tile information
         //  
-        mapScript.ChangeDimensions(3, 3);
+        mapScript.ChangeDimensions((int)mapSize.x, (int)mapSize.y);
 
 
 
@@ -50,7 +51,7 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        state = TurnState.PLAYERTURN;
+        state = TurnState.PLAYERTURN_LABYRINTH;
         PlayerTurn();
 
     }
@@ -60,6 +61,9 @@ public class TurnManager : MonoBehaviour
         numTurns++;
         playerActed = false;
         playerMoved = false;
+
+        //  await input to begin PlayerLabyrinthAction, moving a row/column of the labyrinth
+        //  before being able to move the character.
 
         //  Eventual dialog here?
         //  Some sort of check perhaps to ensure the player cant act more than once?
@@ -82,6 +86,7 @@ public class TurnManager : MonoBehaviour
         //  ONLY ONCE A VALID MOVE IS MADE SHOULD THE 'playerActed' BOOL BE MADE TRUE!
         playerActed = true;
 
+        state = TurnState.PLAYERTURN_MOVE;
         StartCoroutine (PlayerMove());
 
     }
@@ -121,13 +126,15 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        state = TurnState.PLAYERTURN;
+        state = TurnState.PLAYERTURN_LABYRINTH;
         PlayerTurn();
 
     }
 
     public void EndGame()
     {
+        //  ITS SO JOEVER
+
         //  Display how many turns it took the player to finish the game
         //  Funny visuals and dialog from our little frog lad?
 
