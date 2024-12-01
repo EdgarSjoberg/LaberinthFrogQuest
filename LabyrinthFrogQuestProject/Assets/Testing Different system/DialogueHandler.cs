@@ -46,6 +46,6 @@ public class DialogueHandler : MonoBehaviour
         isTyping = false;
 
         // Wait for player input to move to the next line
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space)); // Wait for Space key input
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift)); // Wait for Space key input
     }
 }

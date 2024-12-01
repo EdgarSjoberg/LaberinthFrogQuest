@@ -11,8 +11,14 @@ public class DialogueSequenceManager : MonoBehaviour
     private int currentDialogueIndex = 0;
     private DialogueHandler dialogueHandler;
 
+    string[] lines;
+    CharacterPusher characterPusher;
+    public bool readOnce = false;
+
     void Start()
     {
+        characterPusher = FindObjectOfType<CharacterPusher>();
+
         // Load all the text files from the specified folder
         dialogueFiles = Directory.GetFiles(dialogueFolderPath, "*.txt");
 
@@ -23,7 +29,7 @@ public class DialogueSequenceManager : MonoBehaviour
 
             if (isSingleFileDialogue)
             {
-                LoadSingleDialogue(dialogueFiles[0]); // Load the first file if it's a single file dialogue
+                LoadSingleDialogue(dialogueFiles[currentDialogueIndex]); // Load the first file if it's a single file dialogue
             }
             else
             {
@@ -39,15 +45,14 @@ public class DialogueSequenceManager : MonoBehaviour
     // Loads all the lines from a single text file
     void LoadSingleDialogue(string filePath)
     {
-        string[] lines = File.ReadAllLines(filePath);
-        dialogueHandler.StartDialogue(lines, textSpeed);
+        lines = File.ReadAllLines(filePath);
+
     }
 
     // Loads a dialogue text file and sends it to the DialogueHandler
     void LoadDialogue(string filePath)
     {
-        string[] lines = File.ReadAllLines(filePath);
-        dialogueHandler.StartDialogue(lines, textSpeed);
+        lines = File.ReadAllLines(filePath);
     }
 
     // Call this method to progress to the next dialogue file (if multiple file dialogue is enabled)
@@ -72,28 +77,43 @@ public class DialogueSequenceManager : MonoBehaviour
     }
     private void Update()
     {
-        WaitForInput();
+        if (characterPusher.dialogueIndex == 10 && readOnce == false)
+        {
+            DoOnce();
+        }
+    }
+
+    public void DoOnce()
+    {
+        if (characterPusher.dialogueIndex > 0 && characterPusher.dialogueIndex % 10 == 0)
+        {
+            WaitForInput();
+            dialogueHandler.StartDialogue(lines, textSpeed);
+            readOnce = true;
+        }
     }
 
     // New method to handle Tab key progression
     public void WaitForInput()
     {
-        // Wait for Tab key to switch to the next dialogue file
-        if (Input.GetKeyDown(KeyCode.Tab))
+        // Wait for key to switch to the next dialogue file
+
+
+
+        // Check if there's another dialogue file to load
+        if (currentDialogueIndex + 1 < dialogueFiles.Length)
         {
-            // Check if there's another dialogue file to load
-            if (currentDialogueIndex + 1 < dialogueFiles.Length)
-            {
-                currentDialogueIndex++;
-                LoadSingleDialogue(dialogueFiles[currentDialogueIndex]);
-            }
-            else
-            {
-                Debug.Log("End of dialogue files.");
-            }
+            currentDialogueIndex++;
+            LoadSingleDialogue(dialogueFiles[currentDialogueIndex]);
+        }
+        else
+        {
+            Debug.Log("End of dialogue files.");
+            readOnce = false;
         }
 
+
         // Check for 'Q' to progress to the next game event or dialogue sequence
-        
+
     }
 }

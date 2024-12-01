@@ -7,6 +7,9 @@ public class CharacterPusher : MonoBehaviour
     int mapDepth;
     int mapWidth;
     // Start is called before the first frame update
+
+    public int dialogueIndex;
+
     void Start()
     {
 
@@ -114,12 +117,16 @@ public class CharacterPusher : MonoBehaviour
             {
                 Debug.Log("Pusher Push Up");
                 mapScript.PushTiles(PushDirection.Up, (int)transform.position.x, (int)transform.position.y);
+                dialogueIndex++;
+
             }
 
             else if (transform.position.y == mapScript.MapDepth)
             {
                 Debug.Log("Pusher Push Down");
                 mapScript.PushTiles(PushDirection.Down, (int)transform.position.x, (int)transform.position.y);
+                dialogueIndex++;
+
             }
         }
 
@@ -130,6 +137,8 @@ public class CharacterPusher : MonoBehaviour
 
                 Debug.Log("Pusher Push Right");
                 mapScript.PushTiles(PushDirection.Right, (int)transform.position.x, (int)transform.position.y);
+                dialogueIndex++;
+
             }
 
             else if (transform.position.x == mapScript.MapWidth)
@@ -137,6 +146,8 @@ public class CharacterPusher : MonoBehaviour
 
                 Debug.Log("Pusher Push Left");
                 mapScript.PushTiles(PushDirection.Left, (int)transform.position.x, (int)transform.position.y);
+                dialogueIndex++;
+
             }
         }
     }
