@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class Tile : MonoBehaviour
+public abstract class Collectable : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] protected bool[] paths = null;
-    [SerializeField] protected bool hasScoreCollectable;
+    private Vector2 postition;
 
     void Start()
     {
@@ -20,6 +18,8 @@ public abstract class Tile : MonoBehaviour
     {
         
     }
-
-    public abstract bool CheckPaths(int direction);
+    public virtual void Collect()
+    {
+        Destroy(gameObject);
+    }
 }
