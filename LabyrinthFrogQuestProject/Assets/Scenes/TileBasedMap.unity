@@ -157,7 +157,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 400}
+  m_SizeDelta: {x: 1600, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &165539071
 MonoBehaviour:
@@ -560,6 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3e0fd48c5dab9498660fe0ceded270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenPos: {x: 0, y: -500, z: 0}
 --- !u!1 &1191938531
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,11 +838,11 @@ RectTransform:
   - {fileID: 165539070}
   m_Father: {fileID: 987881796}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -200}
-  m_SizeDelta: {x: -200, y: -600}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 100}
+  m_SizeDelta: {x: 1720, y: 200}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1735764227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,7 +870,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueFolderPath: Assets/Resources/Sentences
   textSpeed: 0.05
-  isSingleFileDialogue: 0
+  isSingleFileDialogue: 1
+  currentDialogueIndex: 0
   readOnce: 0
 --- !u!114 &1735764229
 MonoBehaviour:

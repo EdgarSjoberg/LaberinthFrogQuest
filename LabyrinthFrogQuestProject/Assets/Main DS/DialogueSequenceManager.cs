@@ -8,7 +8,7 @@ public class DialogueSequenceManager : MonoBehaviour
     public bool isSingleFileDialogue = false; // Toggle between single file or multiple files
 
     private string[] dialogueFiles;
-    private int currentDialogueIndex = 0;
+    public int currentDialogueIndex = 0;
     private DialogueHandler dialogueHandler;
 
     string[] lines;
@@ -64,7 +64,7 @@ public class DialogueSequenceManager : MonoBehaviour
             return; // No progression for single file dialogue
         }
 
-        currentDialogueIndex++;
+        //currentDialogueIndex++;
         if (currentDialogueIndex < dialogueFiles.Length)
         {
             LoadDialogue(dialogueFiles[currentDialogueIndex]);
@@ -98,13 +98,14 @@ public class DialogueSequenceManager : MonoBehaviour
     {
         // Wait for key to switch to the next dialogue file
 
-
+       
 
         // Check if there's another dialogue file to load
-        if (currentDialogueIndex + 1 < dialogueFiles.Length)
+        if (currentDialogueIndex + 1 <= dialogueFiles.Length)
         {
-            currentDialogueIndex++;
+            Debug.Log(dialogueFiles.Length.ToString());
             LoadSingleDialogue(dialogueFiles[currentDialogueIndex]);
+            currentDialogueIndex++; 
         }
         else
         {
