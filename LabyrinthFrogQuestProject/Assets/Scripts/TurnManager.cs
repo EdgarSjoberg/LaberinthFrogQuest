@@ -29,7 +29,10 @@ public class TurnManager : MonoBehaviour
     Camera maincamera;
 
     [SerializeField]
-    CharacterScript player;
+    CharacterScript player;  
+    
+    [SerializeField]
+    CharacterPusher pusher;
 
 
     //[SerializeField] List<Tile> tileList = new List<Tile>();
@@ -56,6 +59,8 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case TurnState.PLAYERTURN_LABYRINTH:
+
+                pusher.CheckMoveInput();
 
                 break;
 
@@ -91,7 +96,7 @@ public class TurnManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //state = TurnState.PLAYERTURN_LABYRINTH;
-        state = TurnState.PLAYERTURN_MOVE;
+        state = TurnState.PLAYERTURN_LABYRINTH;
         PlayerTurn();
 
     }
