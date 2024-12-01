@@ -123,7 +123,7 @@ public class CharacterPusher : MonoBehaviour
             }
         }
 
-        else if (transform.position.y > -1 || transform.position.y < mapScript.MapDepth + 1)
+        else if (transform.position.y > -1 && transform.position.y < mapScript.MapDepth)
         {
             if (transform.position.x == -1)
             {
