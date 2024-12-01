@@ -25,8 +25,6 @@ public class MapScript : MonoBehaviour
     {
         mapTiles = new Tile[mapWidth, mapDepth];
         pusher = FindObjectOfType<CharacterPusher>();
-        //CreateMap();
-        //DrawMap();
     }
 
 
