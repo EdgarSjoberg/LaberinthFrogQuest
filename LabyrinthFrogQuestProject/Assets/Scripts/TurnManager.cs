@@ -109,7 +109,7 @@ public class TurnManager : MonoBehaviour
         
         CenterCamera();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
 
 
         state = TurnState.PLAYERTURN_LABYRINTH;
@@ -139,7 +139,7 @@ public class TurnManager : MonoBehaviour
 
         playerActed = true;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
 
         state = TurnState.PLAYERTURN_MOVE;
 
@@ -152,7 +152,7 @@ public class TurnManager : MonoBehaviour
 
         playerMoved = true;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
 
         //  CHECK FOR OBJECTIVE
 
@@ -177,7 +177,7 @@ public class TurnManager : MonoBehaviour
         //  Potential for moving enemies around during this phase.
         //  Pick a column or row entrypoint and begin a move all along that.
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
 
         state = TurnState.PLAYERTURN_LABYRINTH;
         PlayerTurn();

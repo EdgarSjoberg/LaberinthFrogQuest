@@ -98,4 +98,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paths: 01010101
-  hasScoreCollectable: 1
+  hasScoreCollectable: 0
