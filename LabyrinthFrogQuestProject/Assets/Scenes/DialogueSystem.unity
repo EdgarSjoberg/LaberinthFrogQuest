@@ -133,7 +133,8 @@ GameObject:
   - component: {fileID: 269731354}
   - component: {fileID: 269731356}
   - component: {fileID: 269731355}
-  - component: {fileID: 269731357}
+  - component: {fileID: 269731360}
+  - component: {fileID: 269731359}
   m_Layer: 5
   m_Name: DialogueSystem
   m_TagString: Untagged
@@ -199,7 +200,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269731353}
   m_CullTransparentMesh: 1
---- !u!114 &269731357
+--- !u!114 &269731359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,16 +209,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 269731353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 186b023f2aa894a4292fe1e1cfd231d2, type: 3}
+  m_Script: {fileID: 11500000, guid: d9233af99320a584088d4d419329a902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textComponent: {fileID: 356044276}
-  sentences:
-  - Howdy
-  - Gay boy
-  - 'Whatcha doin? '
-  - ;)
-  textSpeed: 0.3
+  dialogueText: {fileID: 356044276}
+--- !u!114 &269731360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269731353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6de6759deb7494f9188f7e81467f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueFolderPath: Assets/Resources/Sentences
+  textSpeed: 0.05
+  isSingleFileDialogue: 0
 --- !u!1 &356044274
 GameObject:
   m_ObjectHideFlags: 0

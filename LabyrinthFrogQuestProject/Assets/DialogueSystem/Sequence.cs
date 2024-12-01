@@ -1,54 +1,77 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using System.IO;
-using UnityEngine.UIElements;
-
 
 public class Sequence : MonoBehaviour
 {
-    public int currentSequence = 0;
-    TextAsset[] paths;
-    string[] texts;
-    // Start is called before the first frame update
+    public int currentSequence = 0; // Track the current sequence (file index)
+    private string[][] allTexts;    // Store lines from all text files (2D array)
+    private string[] currentLines;  // Store lines for the current sequence file
+
     void Start()
     {
-        paths = Resources.LoadAll<TextAsset>("");
-        texts = new string[paths.Length];
+        LoadTextFiles();  // Load the files when the game starts
+    }
 
-        // Populate the texts array with file contents
+    // Load all text files from the Resources folder
+    void LoadTextFiles()
+    {
+        // Load all text assets in the "sentences" folder inside Resources
+        TextAsset[] paths = Resources.LoadAll<TextAsset>("sentences");
+
+        if (paths.Length == 0)
+        {
+            Debug.LogError("No text files found in the Resources/sentences folder!");
+            return;
+        }
+
+        allTexts = new string[paths.Length][]; // Initialize the 2D array to hold all lines
+
+        // Split each text file into lines
         for (int i = 0; i < paths.Length; i++)
         {
-            texts[i] = paths[i].text;
+            allTexts[i] = paths[i].text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+
+            // Log how many lines were loaded from each file
+            Debug.Log($"Loaded {allTexts[i].Length} lines from file {i}: {paths[i].name}");
         }
 
+        Debug.Log($"Total files loaded: {allTexts.Length}");
     }
 
-    // Update is called once per frame
-    void Update()
+    // Get the current lines for the dialogue sequence
+    public string[] GetCurrentFileLines()
     {
-        if(Input.GetKeyDown(KeyCode.Keypad1))
+        // Check if we have a valid file to load
+        if (currentSequence < allTexts.Length)
         {
-            if(currentSequence < texts.Length)
-            {
-                ReadString();
-            }
-        }
+            currentLines = allTexts[currentSequence]; // Get lines for the current sequence
 
-        if(Input.GetKeyDown(KeyCode.Keypad2))
+            // Log the current lines loaded for debugging
+            Debug.Log($"Returning {currentLines.Length} lines from sequence {currentSequence}");
+            return currentLines;
+        }
+        else
         {
-                currentSequence++;
-            
+            Debug.LogError("No more files available.");
+            return null;
         }
     }
 
-    void ReadString()
+    // Move to the next sequence
+    public void NextFile()
     {
-        string text = texts[currentSequence];
-        //Read the text from directly from the test.txt file
-        StreamReader reader = new StreamReader(text);
-        Debug.Log(reader.ReadToEnd());
-        reader.Close();
+        currentSequence++;
+
+        // Check if we've reached the end of the files
+        if (currentSequence >= allTexts.Length)
+        {
+            Debug.LogWarning("No more dialogues available.");
+        }
+        else
+        {
+            Debug.Log($"Moving to next file: {currentSequence}");
+        }
     }
 }
