@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PushDirection { Left, Right, Up, Down }
+public enum PushDirection { Left, Right, Up, Down, Invalid }
 
 public class MapScript : MonoBehaviour
 {
@@ -11,6 +11,9 @@ public class MapScript : MonoBehaviour
 
     [SerializeField] int mapDepth = 2;
     [SerializeField] int mapWidth = 2;
+
+    CharacterPusher pusher;
+
 
     [SerializeField]
     Tile handTile;
@@ -21,7 +24,7 @@ public class MapScript : MonoBehaviour
     void Start()
     {
         mapTiles = new Tile[mapWidth, mapDepth];
-
+        pusher = FindObjectOfType<CharacterPusher>();
         //CreateMap();
         //DrawMap();
     }
@@ -38,6 +41,7 @@ public class MapScript : MonoBehaviour
                 Tile createdTile = Instantiate(tileClone, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
                 createdTile.transform.position = new Vector3(i, j, 0);
                 Debug.Log(i.ToString() + j.ToString());
+                mapTiles[i, j] = createdTile;
             }
         }
     }
@@ -93,65 +97,10 @@ public class MapScript : MonoBehaviour
                         //  Pushing FROM the right side and TOWARD the left
             case PushDirection.Left:
 
-                for(int i = maxSizeWidth; i >= 0; i-- )
-                {
-                    if(i == 0) 
-                    {
-                        Tile tempTile = mapTiles[0, y];
-                        mapTiles[maxSizeWidth, y] = handTile;
-                        handTile = tempTile;
-                    }
-                    else
-                    {
-                        tilesToMove.Add(mapTiles[i, y]);
-                    }
-                    
-                }
-                tilesToMove.Reverse();
-                
-                for(int i = 0; i < tilesToMove.Count; i++)
-                {
-                    
-
-                    Vector3 tilePos = tilesToMove[i].GetComponent<Transform>().position;
-                    tilePos.x -= 1;
-                    tilesToMove[i].GetComponent<Transform>().position = tilePos;
-
-                    mapTiles[i, y] = tilesToMove[i];
-                    
-                }
 
                 break;
                         //  Pushing FROM the left side and TOWARD the right
             case PushDirection.Right:
-
-                for(int i = 0; i <= maxSizeWidth; i++)
-                {
-                    if (i == maxSizeWidth)
-                    {
-                        Tile tempTile = mapTiles[maxSizeWidth, y];
-                        mapTiles[0, y] = handTile;
-                        handTile = tempTile;
-                    }
-                    else
-                    {
-                        tilesToMove.Add(mapTiles[i, y]);
-                    }
-
-
-                }
-                tilesToMove.Reverse();
-
-                for (int i = maxSizeWidth; i > 0; i--)
-                {
-
-                    Vector3 tilePos = tilesToMove[i].GetComponent<Transform>().position;
-                    tilePos.x += 1;
-                    tilesToMove[i].GetComponent<Transform>().position = tilePos;
-
-                    mapTiles[i, y] = tilesToMove[i];
-
-                }
 
 
 
@@ -159,71 +108,59 @@ public class MapScript : MonoBehaviour
                         //  Pushing FROM the bottom side and TOWARD the top
             case PushDirection.Up:
 
+                tilesToMove.Add(handTile);
                 for (int i = 0; i <= maxSizeDepth; i++)
                 {
                     if (i == maxSizeDepth)
                     {
-                        Tile tempTile = mapTiles[x, maxSizeDepth];
-                        mapTiles[x, maxSizeDepth] = handTile;
-                        handTile = tempTile;
-                    }
-                    else
-                    {
-                        tilesToMove.Add(mapTiles[x, maxSizeDepth]);
-                    }
-
-
-                }
-                tilesToMove.Reverse();
-
-                for (int i = maxSizeDepth - 1; i > 0; i--)
-                {
-                    Vector3 tilePos = tilesToMove[i].GetComponent<Transform>().position;
-                    tilePos.y += 1;
-                    tilesToMove[i].GetComponent<Transform>().position = tilePos;
-
-                    mapTiles[x, i] = tilesToMove[i];
-
-                }
-
-                break;
-                        //  Pushing FROM the top side and TOWARD the bottom
-            case PushDirection.Down:
-
-                for (int i = maxSizeDepth; i >= 0; i--)
-                {
-                    if (i == 0)
-                    {
-                        Tile tempTile = mapTiles[x, 0];
-                        mapTiles[x, maxSizeDepth] = handTile;
+                        Tile tempTile = mapTiles[x, i];
                         handTile = tempTile;
                     }
                     else
                     {
                         tilesToMove.Add(mapTiles[x, i]);
                     }
+                }
 
+                for (int i = 0; i <= maxSizeDepth; i++)
+                {
+                    mapTiles[x, i] = tilesToMove[i];
+                    mapTiles[x, i].transform.position = new Vector3(x, i, 0);
 
+                }
+                handTile.transform.position = new Vector3 (0,0,1);
+
+                break;
+                        //  Pushing FROM the top side and TOWARD the bottom
+            case PushDirection.Down:
+
+                tilesToMove.Add(handTile);
+                for (int i = maxSizeDepth; i >= 0; i--)
+                {
+                    if (i == 0)
+                    {
+                        Tile tempTile = mapTiles[x, i];
+                        handTile = tempTile;
+                    }
+                    else
+                    {
+                        tilesToMove.Add(mapTiles[x, i]);
+                    }
                 }
                 tilesToMove.Reverse();
-
-                for (int i = 0; i < maxSizeDepth; i++)
+                for (int i = maxSizeDepth; i >= 0; i--)
                 {
-
-                    Vector3 tilePos = tilesToMove[i].GetComponent<Transform>().position;
-                    tilePos.y -= 1;
-                    tilesToMove[i].GetComponent<Transform>().position = tilePos;
-
                     mapTiles[x, i] = tilesToMove[i];
+                    mapTiles[x, i].transform.position = new Vector3(x, i, 0);
 
                 }
-
+                handTile.transform.position = new Vector3(0, 0, 1);
                 break;
 
         }
+        pusher.GetComponentInChildren<SpriteRenderer>().sprite = handTile.GetComponentInChildren<SpriteRenderer>().sprite;
+        //RedrawMap();
 
-        RedrawMap();
-        
 
     }
     public void RedrawMap()
@@ -233,9 +170,11 @@ public class MapScript : MonoBehaviour
         {
             for (int j = 0; j <= mapDepth - 1; j++)
             {
-                mapTiles[i,j].transform.position = new Vector3(i, j, 0);
+                Tile movingTile = mapTiles[i, j];
+                movingTile.transform.position = new Vector3(i, j, 0);
             }
         }
+
     }
 
 

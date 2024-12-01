@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -105,10 +104,11 @@ public class CharacterPusher : MonoBehaviour
         return false;
     }
 
+    //Gets which direction the pusher should push the tiles based off of its position
     public void GetPushDirection()
     {
-   
-        if (transform.position.x > -1 || transform.position.x < mapScript.MapWidth + 1)
+
+        if (transform.position.x > -1 && transform.position.x < mapScript.MapWidth)
         {
             if (transform.position.y == -1)
             {
@@ -116,19 +116,30 @@ public class CharacterPusher : MonoBehaviour
                 mapScript.PushTiles(PushDirection.Up, (int)transform.position.x, (int)transform.position.y);
             }
 
-            else if(transform.position.y == mapDepth)
+            else if (transform.position.y == mapScript.MapDepth)
+            {
                 Debug.Log("Pusher Push Down");
+                mapScript.PushTiles(PushDirection.Down, (int)transform.position.x, (int)transform.position.y);
+            }
         }
 
-        else if (transform.position.y < -1 || transform.position.y > mapScript.MapDepth + 1)
+        else if (transform.position.y > -1 || transform.position.y < mapScript.MapDepth + 1)
         {
-             if (transform.position.x == -1)
-                Debug.Log("Pusher Push Right");
+            if (transform.position.x == -1)
+            {
 
-            else if(transform.position.x == mapWidth + 1)
+                Debug.Log("Pusher Push Right");
+                mapScript.PushTiles(PushDirection.Right, (int)transform.position.x, (int)transform.position.y);
+            }
+
+            else if (transform.position.x == mapScript.MapWidth)
+            {
+
                 Debug.Log("Pusher Push Left");
+                mapScript.PushTiles(PushDirection.Left, (int)transform.position.x, (int)transform.position.y);
+            }
         }
     }
 }
-    
+
 
