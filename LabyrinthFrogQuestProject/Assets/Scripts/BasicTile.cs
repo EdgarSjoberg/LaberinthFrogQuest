@@ -19,7 +19,7 @@ public class BasicTile : Tile
             Collectable collectable = Instantiate(scoreCollectable);
             collectable.transform.SetParent(this.transform);
             collectable.transform.localPosition = new Vector3(0, 0, -1);
-            GameManager.AddScoreCollectable(collectable);
+            GameManager.AddScoreCollectable();
         }
         
     }
