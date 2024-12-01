@@ -25,14 +25,14 @@ public class DisableEnableSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (characterPusher.dialogueIndex % 10 != 0 && isTurnedOn == true)
+        if (characterPusher.dialogueIndex % dialogueSequenceManager.moduloValue != 0 && isTurnedOn == true)
         {           
 
             dialogueSequenceManager.GetComponent<RectTransform>().localPosition = moveAwayPos; // Disable the DialogueSequenceManager
             isTurnedOn = false;
         }
 
-        if (characterPusher.dialogueIndex % 10 == 0 && characterPusher.dialogueIndex > 1 && isTurnedOn == false)
+        if (characterPusher.dialogueIndex % dialogueSequenceManager.moduloValue == 0 && characterPusher.dialogueIndex > 1 && isTurnedOn == false)
         {
             
 

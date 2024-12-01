@@ -15,6 +15,8 @@ public class DialogueSequenceManager : MonoBehaviour
     CharacterPusher characterPusher;
     public bool readOnce = false;
 
+    public int moduloValue = 2;
+
     void Start()
     {
         characterPusher = FindObjectOfType<CharacterPusher>();
@@ -77,7 +79,7 @@ public class DialogueSequenceManager : MonoBehaviour
     }
     private void Update()
     {
-        if (characterPusher.dialogueIndex == 10 && readOnce == false)
+        if (characterPusher.dialogueIndex ==moduloValue && readOnce == false)
         {
             DoOnce();
         }
@@ -85,7 +87,7 @@ public class DialogueSequenceManager : MonoBehaviour
 
     public void DoOnce()
     {
-        if (characterPusher.dialogueIndex > 0 && characterPusher.dialogueIndex % 10 == 0)
+        if (characterPusher.dialogueIndex > 0 && characterPusher.dialogueIndex % moduloValue == 0)
         {
             WaitForInput();
             dialogueHandler.StartDialogue(lines, textSpeed);

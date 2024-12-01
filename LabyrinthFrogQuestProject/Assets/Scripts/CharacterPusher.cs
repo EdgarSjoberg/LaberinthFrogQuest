@@ -135,6 +135,7 @@ public class CharacterPusher : MonoBehaviour
             {
                 Debug.Log("Pusher Push Up");
                 mapScript.PushTiles(PushDirection.Up, (int)transform.position.x, (int)transform.position.y);
+                dialogueIndex++;
                 return true;
             }
 
@@ -142,6 +143,7 @@ public class CharacterPusher : MonoBehaviour
             {
                 Debug.Log("Pusher Push Down");
                 mapScript.PushTiles(PushDirection.Down, (int)transform.position.x, (int)transform.position.y);
+                dialogueIndex++;
                 return true;
             }
         }
@@ -153,6 +155,7 @@ public class CharacterPusher : MonoBehaviour
 
                 Debug.Log("Pusher Push Right");
                 mapScript.PushTiles(PushDirection.Right, (int)transform.position.x, (int)transform.position.y);
+                dialogueIndex++;
                 return true;
             }
 
@@ -161,6 +164,7 @@ public class CharacterPusher : MonoBehaviour
 
                 Debug.Log("Pusher Push Left");
                 mapScript.PushTiles(PushDirection.Left, (int)transform.position.x, (int)transform.position.y);
+                dialogueIndex++;
                 return true;
             }
         }
