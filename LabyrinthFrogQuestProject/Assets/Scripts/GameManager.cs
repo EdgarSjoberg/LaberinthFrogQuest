@@ -5,19 +5,28 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
- 
-    [SerializeField] static int score = 0;
-    [SerializeField] Collectable scoreCollectable;
-    static Collectable ScoreCollectable;
 
-    static List<Collectable> scoreCollectables = new List<Collectable>();
+    [SerializeField] MapScript mapScript;
+    [SerializeField] static int score = 0;
+    [SerializeField] Collectable scoreCollectablePrefab;
+    static Collectable scoreCollectablePropety;
+    int amountOfCollectibles = 3; 
+
+    static List<Collectable> scoreCollectableList = new List<Collectable>();
     void Start()
     {
-        ScoreCollectable = this.scoreCollectable;
+
+        MapScript mapScript = GetComponent<MapScript>();
+        //spawn first collectibles(Add more later?)
+
+        for (int i = 0; i < amountOfCollectibles; i++)
+        {
+            AddScoreCollectable();
+        }
+
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -30,15 +39,16 @@ public class GameManager : MonoBehaviour
 
     public static Collectable GetScoreCollectable()
     {
-        return ScoreCollectable;
+        return scoreCollectablePropety;
     }
 
     public static Collectable GetRandomScoreCollectable()
     {
-        return ScoreCollectable;
+        return scoreCollectablePropety;
     }
-    public static void AddScoreCollectable(Collectable collectable)
+    public static void AddScoreCollectable()
     {
-        scoreCollectables.Add(collectable);
+       
+        scoreCollectableList.Add(new Collectable());
     }
 }

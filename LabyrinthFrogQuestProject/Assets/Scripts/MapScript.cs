@@ -9,8 +9,8 @@ public class MapScript : MonoBehaviour
     [SerializeField] List<Tile> tileList = new List<Tile>();
     [SerializeField] Tile[,] mapTiles;
 
-    [SerializeField] int mapDepth = 2;
-    [SerializeField] int mapWidth = 2;
+    int mapDepth = 0;
+    int mapWidth = 0;
 
     CharacterPusher pusher;
 

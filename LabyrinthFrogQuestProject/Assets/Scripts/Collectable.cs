@@ -2,14 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Collectable : MonoBehaviour
+public class Collectable : MonoBehaviour
 {
-    // Start is called before the first frame update
 
-    private Vector2 postition;
+    //wont use?
+    //private Vector2 postition;
+
+    //set parent, gives postiion and movement
+    [SerializeField] GameObject parentTile;
+
+
 
     void Start()
     {
+
+
         
     }
 
@@ -18,8 +25,16 @@ public abstract class Collectable : MonoBehaviour
     {
         
     }
+
+    void SetParent(GameObject parent)
+    {
+        parentTile = parent;
+        this.transform.SetParent(parent.transform);
+       
+    }
     public virtual void Collect()
     {
+        //add into scorere
         Destroy(gameObject);
     }
 }
