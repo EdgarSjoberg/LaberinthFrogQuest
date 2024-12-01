@@ -14,6 +14,8 @@ public class MapScript : MonoBehaviour
 
     CharacterPusher pusher;
 
+    [SerializeField]
+    CharacterScript player;
 
     [SerializeField]
     Tile handTile;
@@ -25,8 +27,6 @@ public class MapScript : MonoBehaviour
     {
         mapTiles = new Tile[mapWidth, mapDepth];
         pusher = FindObjectOfType<CharacterPusher>();
-        //CreateMap();
-        //DrawMap();
     }
 
 
@@ -92,6 +92,10 @@ public class MapScript : MonoBehaviour
         int maxSizeWidth = mapWidth - 1;
         int maxSizeDepth = mapDepth - 1;    
 
+        Vector3 playerPos = player.GetComponent<Transform>().position;
+        bool playerPushed = false;
+
+
         switch (direction) 
         { 
                         //  Pushing FROM the right side and TOWARD the left
@@ -114,6 +118,13 @@ public class MapScript : MonoBehaviour
                 {
                     mapTiles[i, y] = tilesToMove[i];
                     mapTiles[i, y].transform.position = new Vector3(i, y, 0);
+
+                    if(playerPos == mapTiles[i,y].transform.position && !playerPushed)
+                    {
+                        playerPushed = true;
+                        playerPos.x -= 1;
+                        player.transform.position = playerPos;
+                    }
 
                 }
                 handTile.transform.position = new Vector3(0, 0, 1);
@@ -140,6 +151,13 @@ public class MapScript : MonoBehaviour
                 {
                     mapTiles[i, y] = tilesToMove[i];
                     mapTiles[i, y].transform.position = new Vector3(i, y, 0);
+
+                    if (playerPos == mapTiles[i, y].transform.position && !playerPushed)
+                    {
+                        playerPushed = true;
+                        playerPos.x += 1;
+                        player.transform.position = playerPos;
+                    }
 
                 }
                 handTile.transform.position = new Vector3(0, 0, 1);
@@ -168,6 +186,14 @@ public class MapScript : MonoBehaviour
                     mapTiles[x, i] = tilesToMove[i];
                     mapTiles[x, i].transform.position = new Vector3(x, i, 0);
 
+                    if (playerPos == mapTiles[x, i].transform.position && !playerPushed)
+                    {
+                        playerPushed = true;
+                        playerPos.y += 1;
+                        player.transform.position = playerPos;
+                    }
+
+
                 }
                 handTile.transform.position = new Vector3 (0,0,1);
 
@@ -194,12 +220,43 @@ public class MapScript : MonoBehaviour
                     mapTiles[x, i] = tilesToMove[i];
                     mapTiles[x, i].transform.position = new Vector3(x, i, 0);
 
+                    if (playerPos == mapTiles[x, i].transform.position && !playerPushed)
+                    {
+                        Debug.Log($"Player was on pos {playerPos} and is to be moved!");
+                        playerPushed = true;
+                        playerPos.y -= 1;
+                        player.transform.position = playerPos;
+                        Debug.Log($"Player was moved to {playerPos}!");
+                    }
+
                 }
                 handTile.transform.position = new Vector3(0, 0, 1);
                 break;
 
         }
         pusher.GetComponentInChildren<SpriteRenderer>().sprite = handTile.GetComponentInChildren<SpriteRenderer>().sprite;
+
+        if (playerPos.x < 0)
+        {
+            playerPos.x = maxSizeWidth;
+            player.transform.position = playerPos;
+        }
+        else if (playerPos.x > maxSizeWidth)
+        {
+            playerPos.x = 0;
+            player.transform.position = playerPos;
+        }
+        else if (playerPos.y < 0) 
+        {
+            playerPos.y = maxSizeDepth;
+            player.transform.position = playerPos;
+        }
+        else if(playerPos.y > maxSizeDepth)
+        {
+            playerPos.y = 0;
+            player.transform.position = playerPos;
+        }
+
         //RedrawMap();
 
 

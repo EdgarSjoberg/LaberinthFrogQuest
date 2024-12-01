@@ -1,15 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class Tile : MonoBehaviour
+public class ScoreCollectable : Collectable
 {
     // Start is called before the first frame update
-
-    [SerializeField] protected bool[] paths = null;
-    [SerializeField] protected bool hasScoreCollectable;
-
     void Start()
     {
         
@@ -20,6 +15,10 @@ public abstract class Tile : MonoBehaviour
     {
         
     }
-
-    public abstract bool CheckPaths(int direction);
+    public override void Collect()
+    {
+        //Add score
+        GameManager.AddScore(1);
+        base.Collect();
+    }
 }

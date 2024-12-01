@@ -4,18 +4,17 @@ public class CharacterScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    //bool moveTurn = true;
-    bool placeTileTurn;
+
     [SerializeField] float moveSpeed;
     [SerializeField] MapScript mapScript;
 
-    bool playerTurn;
+
 
 
     void Start()
     {
         transform.position = Vector3.zero;
-        playerTurn = false;
+
     }
 
     enum MoveDirection
@@ -29,38 +28,30 @@ public class CharacterScript : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        //while(playerTurn)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.Space))
-        //    {
-        //        if (!moveTurn)
-        //        {
-        //            placeTileTurn = false;
-        //            moveTurn = true;
-        //            Debug.Log("move turn");
-        //        }
-        //        else
-        //        {
-        //            moveTurn = false;
-        //            placeTileTurn = true;
-        //            Debug.Log("Place turn");
-        //        }
-        //    }
-        //    CheckMoveInput();
-        //}
+        
 
 
         
     }
 
-    public void CheckMoveInput()
+
+
+    public bool CheckMoveInput()
     {
+        //  Skip turn function
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            return true;
+
+        }
+
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (CanMove(MoveDirection.Up))
             {
                 //moveTurn = false;
                 transform.position += new Vector3(0, 1, 0);
+                return true;
             }
 
         }
@@ -70,6 +61,7 @@ public class CharacterScript : MonoBehaviour
             {
                 //moveTurn = false;
                 transform.position += new Vector3(0, -1, 0);
+                return true;
             }
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -78,6 +70,7 @@ public class CharacterScript : MonoBehaviour
             {
                 //moveTurn = false;
                 transform.position += new Vector3(1, 0, 0);
+                return true;
             }
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -86,8 +79,10 @@ public class CharacterScript : MonoBehaviour
             {
                 //moveTurn = false;
                 transform.position += new Vector3(-1, 0, 0);
+                return true;
             }
         }
+        return false;
     }
 
 
@@ -158,10 +153,5 @@ public class CharacterScript : MonoBehaviour
 
 
 
-    public bool PlayerTurn
-    {
-        get { return playerTurn; }
-        set { playerTurn = value;  }
-    }
 
 }

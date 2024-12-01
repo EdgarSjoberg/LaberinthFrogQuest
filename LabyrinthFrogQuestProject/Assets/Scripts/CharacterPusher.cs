@@ -23,10 +23,10 @@ public class CharacterPusher : MonoBehaviour
 
     public void CheckMoveInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GetPushDirection();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    GetPushDirection();
+        //}
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (CanMove(MoveDirection.Up))
@@ -61,6 +61,24 @@ public class CharacterPusher : MonoBehaviour
             }
         }
     }
+
+    public bool CheckPushInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(GetPushDirection())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
     bool CanMove(MoveDirection moveDirection)
     {
 
@@ -108,7 +126,7 @@ public class CharacterPusher : MonoBehaviour
     }
 
     //Gets which direction the pusher should push the tiles based off of its position
-    public void GetPushDirection()
+    public bool GetPushDirection()
     {
 
         if (transform.position.x > -1 && transform.position.x < mapScript.MapWidth)
@@ -117,16 +135,14 @@ public class CharacterPusher : MonoBehaviour
             {
                 Debug.Log("Pusher Push Up");
                 mapScript.PushTiles(PushDirection.Up, (int)transform.position.x, (int)transform.position.y);
-                dialogueIndex++;
-
+                return true;
             }
 
             else if (transform.position.y == mapScript.MapDepth)
             {
                 Debug.Log("Pusher Push Down");
                 mapScript.PushTiles(PushDirection.Down, (int)transform.position.x, (int)transform.position.y);
-                dialogueIndex++;
-
+                return true;
             }
         }
 
@@ -137,8 +153,7 @@ public class CharacterPusher : MonoBehaviour
 
                 Debug.Log("Pusher Push Right");
                 mapScript.PushTiles(PushDirection.Right, (int)transform.position.x, (int)transform.position.y);
-                dialogueIndex++;
-
+                return true;
             }
 
             else if (transform.position.x == mapScript.MapWidth)
@@ -146,11 +161,14 @@ public class CharacterPusher : MonoBehaviour
 
                 Debug.Log("Pusher Push Left");
                 mapScript.PushTiles(PushDirection.Left, (int)transform.position.x, (int)transform.position.y);
-                dialogueIndex++;
-
+                return true;
             }
         }
+
+        return false;
     }
+
+
+
+
 }
-
-

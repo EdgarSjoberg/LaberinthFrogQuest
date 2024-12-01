@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6895066606640830580}
   - component: {fileID: 6285314206767769754}
   m_Layer: 0
-  m_Name: 4WayTile
+  m_Name: 2WayTurnDownLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.0990566, g: 0.463456, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d83c25aab1f3ea94eb701d39fdd621ea, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab170916f2f8454e98c61fb015f08dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paths: 01010101
-  hasCollectable: 0
+  paths: 00000101
+  hasScoreCollectable: 0

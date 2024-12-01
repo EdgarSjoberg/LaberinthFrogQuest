@@ -56,23 +56,39 @@ public class TurnManager : MonoBehaviour
             case TurnState.START:
 
                 
-                break;
+            break;
 
             case TurnState.PLAYERTURN_LABYRINTH:
 
-                pusher.CheckMoveInput();
+                if(!playerActed)
+                {
+                    pusher.CheckMoveInput();
+                    if (pusher.CheckPushInput())
+                    {
+                        StartCoroutine(PlayerLabyrinthAction());
+                    }
+                }
+                
 
-                break;
+            break;
 
             case TurnState.PLAYERTURN_MOVE:
 
-                player.CheckMoveInput();
 
-                break;
+                if(!playerMoved)
+                {
+                    if(player.CheckMoveInput())
+                    {
+                        StartCoroutine (PlayerMove());
+                    }
+                }
+                
+
+            break;
 
             case TurnState.END:
 
-                break;
+            break;
 
         }
             
@@ -85,7 +101,7 @@ public class TurnManager : MonoBehaviour
     IEnumerator SetupGame()
     {
         //  Set up visuals and tile information
-        //  
+
         mapScript.ChangeDimensions((int)mapSize.x, (int)mapSize.y);
 
         mapScript.CreateMap();
@@ -95,7 +111,7 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        //state = TurnState.PLAYERTURN_LABYRINTH;
+
         state = TurnState.PLAYERTURN_LABYRINTH;
         PlayerTurn();
 
@@ -107,7 +123,7 @@ public class TurnManager : MonoBehaviour
         playerActed = false;
         playerMoved = false;
 
-        player.PlayerTurn = true;
+
 
         //  await input to begin PlayerLabyrinthAction, moving a row/column of the labyrinth
         //  before being able to move the character.
@@ -121,34 +137,24 @@ public class TurnManager : MonoBehaviour
     IEnumerator PlayerLabyrinthAction()
     {
 
-        //  If the tile clicked on is within movement range, check if its a valid move
-        //  If it isn't a valid move, let the player make a new choice
-        //  If it is a valid move, the move is made and then the turn is shifted to LabyrinthTurn
+        playerActed = true;
 
         yield return new WaitForSeconds(1f);
 
-        //  A check to see if the player has acquired the 'objective', potentially ending the game
-        //  Otherwise it continues on
-
-        //  ONLY ONCE A VALID MOVE IS MADE SHOULD THE 'playerActed' BOOL BE MADE TRUE!
-        playerActed = true;
-
         state = TurnState.PLAYERTURN_MOVE;
-        StartCoroutine (PlayerMove());
+
 
     }
 
     IEnumerator PlayerMove()
     {
-        //  Check if move is valid. If player already moved, don't execute another move (see playerMoved bool)
-        //  If yes: execute the move
-        //  if no: dont do anything and wait for valid input
-
-        yield return new WaitForSeconds(1f);
+        
 
         playerMoved = true;
 
-        //  
+        yield return new WaitForSeconds(1f);
+
+        //  CHECK FOR OBJECTIVE
 
         if (won)
         {
@@ -173,7 +179,7 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        state = TurnState.PLAYERTURN_MOVE;
+        state = TurnState.PLAYERTURN_LABYRINTH;
         PlayerTurn();
 
     }
