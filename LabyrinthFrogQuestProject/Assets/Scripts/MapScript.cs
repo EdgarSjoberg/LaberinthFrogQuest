@@ -96,12 +96,53 @@ public class MapScript : MonoBehaviour
         { 
                         //  Pushing FROM the right side and TOWARD the left
             case PushDirection.Left:
+                tilesToMove.Add(handTile);
+                for (int i = maxSizeDepth; i >= 0; i--)
+                {
+                    if (i == 0)
+                    {
+                        Tile tempTile = mapTiles[i, y];
+                        handTile = tempTile;
+                    }
+                    else
+                    {
+                        tilesToMove.Add(mapTiles[i, y]);
+                    }
+                }
+                tilesToMove.Reverse();
+                for (int i = maxSizeDepth; i >= 0; i--)
+                {
+                    mapTiles[i, y] = tilesToMove[i];
+                    mapTiles[i, y].transform.position = new Vector3(i, y, 0);
 
+                }
+                handTile.transform.position = new Vector3(0, 0, 1);
 
                 break;
                         //  Pushing FROM the left side and TOWARD the right
             case PushDirection.Right:
 
+                tilesToMove.Add(handTile);
+                for (int i = 0; i <= maxSizeDepth; i++)
+                {
+                    if (i == maxSizeDepth)
+                    {
+                        Tile tempTile = mapTiles[i, y];
+                        handTile = tempTile;
+                    }
+                    else
+                    {
+                        tilesToMove.Add(mapTiles[i, y]);
+                    }
+                }
+
+                for (int i = 0; i <= maxSizeDepth; i++)
+                {
+                    mapTiles[i, y] = tilesToMove[i];
+                    mapTiles[i, y].transform.position = new Vector3(i, y, 0);
+
+                }
+                handTile.transform.position = new Vector3(0, 0, 1);
 
 
                 break;
