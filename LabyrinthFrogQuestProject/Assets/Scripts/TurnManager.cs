@@ -56,7 +56,7 @@ public class TurnManager : MonoBehaviour
             case TurnState.START:
 
                 
-                break;
+            break;
 
             case TurnState.PLAYERTURN_LABYRINTH:
 
@@ -70,7 +70,7 @@ public class TurnManager : MonoBehaviour
                 }
                 
 
-                break;
+            break;
 
             case TurnState.PLAYERTURN_MOVE:
 
@@ -84,11 +84,11 @@ public class TurnManager : MonoBehaviour
                 }
                 
 
-                break;
+            break;
 
             case TurnState.END:
 
-                break;
+            break;
 
         }
             
